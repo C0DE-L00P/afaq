@@ -1,1 +1,12 @@
 /* You can add global styles to this file, and also import other style files */
+@import url('./bs.min.css');
+
+.text-green{
+    color: #136456;
+}
+/* TODO make triangle shape */
+.arrow-shape:after{
+    content: '-';
+    color: #f7d99b;
+    
+}
