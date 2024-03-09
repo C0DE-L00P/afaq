@@ -1,12 +1,13 @@
+import { LocationsService } from './../../../core/locations.service';
 import { CommonModule } from '@angular/common';
-import { HomeService } from './../../../core/home.service';
 import { Component } from '@angular/core';
-import { GoogleMapsModule } from '@angular/google-maps';
+import { StatisticsService } from '../../../core/statistics.service';
+// import { GoogleMapsModule } from '@angular/google-maps';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule,GoogleMapsModule],
+  imports: [CommonModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
@@ -14,9 +15,10 @@ export class HomeComponent {
 
   coordinates:Coordinate[]|null = []
 
-  constructor(private homeService: HomeService){}
+  constructor(private locationsService: LocationsService, private statisticsService: StatisticsService){}
+
   ngOnInit(){
-    this.homeService.getCoordinates().subscribe(
+    this.locationsService.getLocations().subscribe(
       res=> {
         if(!res.success) throw res.message
 

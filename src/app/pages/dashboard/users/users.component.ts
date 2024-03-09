@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
+import { UsersService } from '../../../core/users.service';
 
 @Component({
   selector: 'app-users',
@@ -9,29 +10,33 @@ import { Component } from '@angular/core';
   styleUrl: './users.component.css',
 })
 export class UsersComponent {
-  //TODO check if User type matches API
   //TODO make columns sortable
   //TODO make placeholder when empty table
 
   modalData: User = {
-    img: '',
+    userType: 'System',
+    url: '',
+    clientId: '1',
     id: 1,
-    fullname: 'محمد جمال',
-    username: 'mohamedgyaseen',
+    userName: 'mohamedgyaseen',
+    name: 'محمد جمال',
     email: 'mohamedgyaseen@gmail.com',
-    password: '',
   };
   modalState: 'preview' | 'add' | 'edit' = 'preview';
 
-  users: User[] = [
-    {
-      userType: 'System',
-      url: '',
-      clientId: '1',
-      id: 1,
-      userName: 'mohamedgyaseen',
-      name: 'محمد جمال',
-      email: 'mohamedgyaseen@gmail.com',
-    },
-  ];
+  users: User[] = [];
+  
+  constructor(private usersService: UsersService){}
+    
+  ngOnInit(){
+    this.usersService.getUsers().subscribe(
+      res=> {
+       if(!res.success) throw res.message
+
+       console.log('Data',res.data)
+       this.users = res.data
+      },
+      err=> console.error('here',err)
+    )
+  }
 }
