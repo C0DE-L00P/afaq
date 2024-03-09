@@ -8,5 +8,12 @@
 .arrow-shape:after{
     content: '-';
     color: #f7d99b;
-    
+}
+
+input.ng-touched.ng-invalid{
+    border: 1px solid red;
+}
+
+button[disabled]{
+    opacity: 0.8;
 }
