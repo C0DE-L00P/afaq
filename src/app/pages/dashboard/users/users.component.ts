@@ -1,11 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { UsersService } from '../../../core/users.service';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-users',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './users.component.html',
   styleUrl: './users.component.css',
 })
@@ -25,16 +26,32 @@ export class UsersComponent {
   modalState: 'preview' | 'add' | 'edit' = 'preview';
 
   users: User[] = [];
+  options = {
+    pageNumber: 1,
+    pageSize: 10
+  }
   
   constructor(private usersService: UsersService){}
     
   ngOnInit(){
-    this.usersService.getUsers().subscribe(
+    this.usersService.getUsers(this.options.pageNumber,this.options.pageSize)
+    .subscribe(
       res=> {
-       if(!res.success) throw res.message
+       this.users = res
+      },
+      err=> console.error('here',err)
+    )
+  }
 
-       console.log('Data',res.data)
-       this.users = res.data
+  changePage(state: 'next'|'prev'){
+    //TODO if(this.options.pageNumber)
+
+    let page = this.options.pageNumber + (state=='next'? 1:-1)
+
+    this.usersService.getUsers(page,this.options.pageSize)
+    .subscribe(
+      res=> {
+       this.users = res
       },
       err=> console.error('here',err)
     )

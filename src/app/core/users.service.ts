@@ -9,14 +9,14 @@ export class UsersService {
 
   constructor(private apiService: ApiService) { }
   
-  getUsers = (pageNumber: number = 1, pageSize:number = 10) : Observable<Response> => {
+  getUsers = (pageNumber: number = 1, pageSize:number = 100) : Observable<User[]> => {
     return this.apiService.post(this.apiService.BASE_URL+'/api/UsersApp',{
       "pageNumber": 1,
       "pageSize": 10
     })
   }
 
-  getUser = (id:number): Observable<Response> => {
+  getUser = (id:number): Observable<User> => {
     return this.apiService.get(this.apiService.BASE_URL+'/api/UsersApp/'+id)
   }
 
