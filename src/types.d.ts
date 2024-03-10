@@ -24,6 +24,10 @@ interface Coordinate {
   longitude: number;
   id: number;
 }
+interface GoogleMapCoordinate {
+  lat: number;
+  lng: number;
+}
 
 interface FinancialRecord {
   month: string;

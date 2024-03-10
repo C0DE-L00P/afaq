@@ -1,16 +1,41 @@
-<section class="bg-white rounded-4 p-4 mb-4 mx-2">
-    <p *ngFor="let co of locations">{{co.id}} - {{co.longitude}} - {{co.latitude}}</p>
-</section>
-<section class="bg-white rounded-4 p-4 mb-4 mx-2">
-    <p *ngFor="let co of paths">{{co.id}} - {{co.longitude}} - {{co.latitude}}</p>
+<section class="bg-white rounded-1 pt-2 pb-0 mb-4 mx-2">
+    <h4 class="my-2 mb-4 mx-4">Locations Map</h4>
+    <div class="overflow-hidden d-flex flex-column mx-auto" style="width: max-content; ">
+        <google-map height="460px" width="71.6vw" class="map-container" [center]="center" [zoom]="zoom" (mapMousemove)="move($event)" (mapClick)="addMarker($event)">
+            @for (position of markerPositions; track position) {
+            <map-marker [position]="position" [options]="markerOptions" />
+            }
+        </google-map>
+    </div>
 </section>
 
-<section class="bg-white rounded-4 p-4 mb-4 mx-2">
-    <h3>Financial</h3>
-    <div *ngFor="let record of financials">{{record.month}} - {{record.revenue}}</div>
+<section class="bg-white rounded-1 pt-2 pb-0 mb-4 mx-2">
+    <h4 class="my-2 mb-4 mx-4">Tracking Map</h4>
+    <div class="overflow-hidden d-flex flex-column mx-auto" style="width: max-content; ">
+        <!-- <google-map height="400px" width="750px" [center]="center" [zoom]="zoom">
+            @if (directionsResults$ | async; as directionsResults) {
+              <map-directions-renderer [directions]="directionsResults" />
+            }
+          </google-map> -->
+    </div>
 </section>
 
+
+<!-- <section class="bg-white rounded-4 p-4 mb-4 mx-2">
+    <h4>Tracking Map</h4>
+  <p *ngFor="let co of paths">{{co.id}} - {{co.longitude}} - {{co.latitude}}</p>
+</section> -->
+
+
+
 <section class="bg-white rounded-4 p-4 mb-4 mx-2">
-    <h3>Number of users</h3>
-    <div *ngFor="let record of usersStats">{{record.month}} - {{record.numberOfUsers}}</div>
+  <!-- TODO Change legend position and style of the bars -->
+  <h4>Financial</h4>
+  <div echarts [options]="financialChartOptions" [merge]="financialChartMergeOptions" class="bar-chart"></div>
+</section>
+
+
+<section class="bg-white rounded-4 p-4 mb-4 mx-2">
+  <h4>Number of users</h4>
+  <div echarts [options]="usersChartOptions" [merge]="usersChartMergeOptions" class="line-chart"></div>
 </section>

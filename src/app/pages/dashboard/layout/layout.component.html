@@ -22,11 +22,12 @@
             </svg>
           </button>
           <ul class="dropdown-menu">
-            <li *ngFor="let notify of notifications">
+            <li *ngFor="let notify of notifications; index as i">
               <a class="dropdown-item link-dark">
-                {{notify.title}}
-                <small class="block text-secondary">{{notify.createdAt}}</small>
+                <div class="fw-bold mb-0">{{notify.title}}</div>
+                <small class="block text-secondary fs-10">{{notify.createdAt}}</small>
               </a>
+              <hr *ngIf="i !=notifications.length -1" class="m-0 mb-1">
             </li>
           </ul>
         </div>

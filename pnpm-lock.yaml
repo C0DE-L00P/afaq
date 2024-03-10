@@ -20,6 +20,9 @@ dependencies:
   '@angular/forms':
     specifier: ^17.0.0
     version: 17.2.4(@angular/common@17.2.4)(@angular/core@17.2.4)(@angular/platform-browser@17.2.4)(rxjs@7.8.1)
+  '@angular/google-maps':
+    specifier: ^17.2.2
+    version: 17.2.2(@angular/common@17.2.4)(@angular/core@17.2.4)(rxjs@7.8.1)
   '@angular/platform-browser':
     specifier: ^17.0.0
     version: 17.2.4(@angular/animations@17.2.4)(@angular/common@17.2.4)(@angular/core@17.2.4)
@@ -29,6 +32,12 @@ dependencies:
   '@angular/router':
     specifier: ^17.0.0
     version: 17.2.4(@angular/common@17.2.4)(@angular/core@17.2.4)(@angular/platform-browser@17.2.4)(rxjs@7.8.1)
+  echarts:
+    specifier: ^5.5.0
+    version: 5.5.0
+  ngx-echarts:
+    specifier: ^17.1.0
+    version: 17.1.0(echarts@5.5.0)
   rxjs:
     specifier: ~7.8.0
     version: 7.8.1
@@ -384,6 +393,20 @@ packages:
       '@angular/common': 17.2.4(@angular/core@17.2.4)(rxjs@7.8.1)
       '@angular/core': 17.2.4(rxjs@7.8.1)(zone.js@0.14.4)
       '@angular/platform-browser': 17.2.4(@angular/animations@17.2.4)(@angular/common@17.2.4)(@angular/core@17.2.4)
+      rxjs: 7.8.1
+      tslib: 2.6.2
+    dev: false
+
+  /@angular/google-maps@17.2.2(@angular/common@17.2.4)(@angular/core@17.2.4)(rxjs@7.8.1):
+    resolution: {integrity: sha512-RMi7LZY8Oh9tIHx31STjSvSaCW2Yjelkv+G0rormjBsd8RR+aPCYQgnDthJFa5NqB4G/QS2kshe6V/5SxX5rKg==}
+    peerDependencies:
+      '@angular/common': ^17.0.0 || ^18.0.0
+      '@angular/core': ^17.0.0 || ^18.0.0
+      rxjs: ^6.5.3 || ^7.4.0
+    dependencies:
+      '@angular/common': 17.2.4(@angular/core@17.2.4)(rxjs@7.8.1)
+      '@angular/core': 17.2.4(rxjs@7.8.1)(zone.js@0.14.4)
+      '@types/google.maps': 3.55.4
       rxjs: 7.8.1
       tslib: 2.6.2
     dev: false
@@ -2555,6 +2578,10 @@ packages:
       '@types/serve-static': 1.15.5
     dev: true
 
+  /@types/google.maps@3.55.4:
+    resolution: {integrity: sha512-Ip3IfRs3RZjeC88V8FGnWQTQXeS5gkJedPSosN6DMi9Xs8buGTpsPq6UhREoZsGH+62VoQ6jiRBUR8R77If69w==}
+    dev: false
+
   /@types/http-errors@2.0.4:
     resolution: {integrity: sha512-D0CFMMtydbJAegzOyHjtiKPLlvnm3iTZyZRSZoLq2mRhDdmLfIWOCYPfQJ4cu2erKghU++QvjcUjp/5h7hESpA==}
     dev: true
@@ -3645,6 +3672,13 @@ packages:
   /eastasianwidth@0.2.0:
     resolution: {integrity: sha512-I88TYZWc9XiYHRQ4/3c5rjjfgkjhLyW2luGIheGERbNQ6OY7yTybanSpDXZa8y7VUP9YmDcYa+eyq4ca7iLqWA==}
     dev: true
+
+  /echarts@5.5.0:
+    resolution: {integrity: sha512-rNYnNCzqDAPCr4m/fqyUFv7fD9qIsd50S6GDFgO1DxZhncCsNsG7IfUlAlvZe5oSEQxtsjnHiUuppzccry93Xw==}
+    dependencies:
+      tslib: 2.3.0
+      zrender: 5.5.0
+    dev: false
 
   /ee-first@1.1.1:
     resolution: {integrity: sha512-WMwm9LhRUo+WUaRN+vRuETqG89IgZphVSNkdFgeb6sS/E4OrDIN7t48CAewSHXc6C8lefD8KKfr5vY61brQlow==}
@@ -5311,6 +5345,15 @@ packages:
     resolution: {integrity: sha512-Yd3UES5mWCSqR+qNT93S3UoYUkqAZ9lLg8a7g9rimsWmYGK8cVToA4/sF3RrshdyV3sAGMXVUmpMYOw+dLpOuw==}
     dev: true
 
+  /ngx-echarts@17.1.0(echarts@5.5.0):
+    resolution: {integrity: sha512-DSNF/aKmJSxJWb9UwPUgNtY8Ma9SmViDBRacvAwpakc/5mJerunxndDgoBQkYk5JFKAjXX6bp4ZWLRKL3/5AGA==}
+    peerDependencies:
+      echarts: '>=5.0.0'
+    dependencies:
+      echarts: 5.5.0
+      tslib: 2.6.2
+    dev: false
+
   /nice-napi@1.0.2:
     resolution: {integrity: sha512-px/KnJAJZf5RuBGcfD+Sp2pAKq0ytz8j+1NehvgIGFkvtvFrDM3T8E4x/JJODXK9WZow8RRGrbA9QQ3hs+pDhA==}
     os: ['!win32']
@@ -6725,6 +6768,10 @@ packages:
     hasBin: true
     dev: true
 
+  /tslib@2.3.0:
+    resolution: {integrity: sha512-N82ooyxVNm6h1riLCoyS9e3fuJ3AMG2zIZs2Gd1ATcSFjSA23Q0fzjjZeh0jbJvWVDZ0cJT8yaNNaaXHzueNjg==}
+    dev: false
+
   /tslib@2.6.2:
     resolution: {integrity: sha512-AEYxH93jGFPn/a2iVAwW87VuUIkR1FVUKB77NwMF7nBTDkDrrT/Hpt/IrCJ0QXhW27jTBDcf5ZY7w6RiqTMw2Q==}
 
@@ -7243,3 +7290,9 @@ packages:
     resolution: {integrity: sha512-NtTUvIlNELez7Q1DzKVIFZBzNb646boQMgpATo9z3Ftuu/gWvzxCW7jdjcUDoRGxRikrhVHB/zLXh1hxeJawvw==}
     dependencies:
       tslib: 2.6.2
+
+  /zrender@5.5.0:
+    resolution: {integrity: sha512-O3MilSi/9mwoovx77m6ROZM7sXShR/O/JIanvzTwjN3FORfLSr81PsUGd7jlaYOeds9d8tw82oP44+3YucVo+w==}
+    dependencies:
+      tslib: 2.3.0
+    dev: false
