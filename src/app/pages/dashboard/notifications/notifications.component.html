@@ -1,1 +1,9 @@
-<p>notifications works!</p>
+<main class="bg-white rounded-4 p-4">
+    
+<div  *ngFor="let notify of notifications; index as i">
+    <div class="fw-bold mb-0">{{notify.title}}</div>
+    <small class="block text-secondary fs-10">{{notify.createdAt}}</small>
+    <hr *ngIf="i < notifications.length - 1">
+  </div>
+
+</main>

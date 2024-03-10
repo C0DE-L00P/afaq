@@ -21,7 +21,7 @@
               </g>
             </svg>
           </button>
-          <ul class="dropdown-menu">
+          <ul class="dropdown-menu border-0 shadow">
             <li *ngFor="let notify of notifications; index as i">
               <a class="dropdown-item link-dark">
                 <div class="fw-bold mb-0">{{notify.title}}</div>
@@ -34,13 +34,13 @@
       </span>
 
       <i class="bg-warning inline-block " style="width: 1px; height: 100%;color: transparent">|</i>
-      <span>
+      <span class="me-4">
         <div class="dropdown">
           <button class="btn btn-sm border-0 outline-0 dropdown-toggle fw-semibold" type="button" data-bs-toggle="dropdown" aria-expanded="false">
             <img src="{{'/assets/fallback-user-img.webp'}}" alt="user image" class="rounded-circle user-img me-2" appImgfall="/assets/fallback-user-img.webp">
             {{userData.name}}
           </button>
-          <ul class="dropdown-menu">
+          <ul class="dropdown-menu border-0 shadow">
             <li><button class="dropdown-item" (click)="logout()">Logout</button></li>
           </ul>
         </div>
