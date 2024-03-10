@@ -15,3 +15,6 @@ input.ng-touched.ng-invalid{
 button[disabled]{
     opacity: 0.8;
 }
+.min-w-max{
+    min-width: max-content;
+}

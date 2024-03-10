@@ -11,17 +11,17 @@
     <thead>
       <tr>
         <th scope="col fw-thin text-center">Photo</th>
-        <th scope="col fw-thin text-center d-flex justify-content-between" role="button" (click)="sortTable('name')" style="min-width: max-content; display: inline-block">
+        <th scope="col fw-thin text-center d-flex justify-content-between min-w-max" role="button" (click)="sortTable('name')">
           <svg xmlns="http://www.w3.org/2000/svg" class="opacity-50 me-2" width="0.63em" height="1em" viewBox="0 0 320 512">
             <path fill="currentColor" d="M41 288h238c21.4 0 32.1 25.9 17 41L177 448c-9.4 9.4-24.6 9.4-33.9 0L24 329c-15.1-15.1-4.4-41 17-41m255-105L177 64c-9.4-9.4-24.6-9.4-33.9 0L24 183c-15.1 15.1-4.4 41 17 41h238c21.4 0 32.1-25.9 17-41" />
           </svg>
-          <span style="min-width: max-content; display: inline-block">Full Name</span>
+          <span class="min-w-max d-inline-block">Full Name</span>
         </th>
-        <th scope="col fw-thin text-center d-flex justify-content-between" role="button" (click)="sortTable('userName')"  style="min-width: max-content; display: inline-block">
+        <th scope="col fw-thin text-center d-flex justify-content-between min-w-max" role="button" (click)="sortTable('userName')">
           <svg xmlns="http://www.w3.org/2000/svg" class="opacity-50 me-2" width="0.63em" height="1em" viewBox="0 0 320 512">
             <path fill="currentColor" d="M41 288h238c21.4 0 32.1 25.9 17 41L177 448c-9.4 9.4-24.6 9.4-33.9 0L24 329c-15.1-15.1-4.4-41 17-41m255-105L177 64c-9.4-9.4-24.6-9.4-33.9 0L24 183c-15.1 15.1-4.4 41 17 41h238c21.4 0 32.1-25.9 17-41" />
           </svg>
-          <span style="min-width: max-content; display: inline-block">User Name</span>
+          <span>User Name</span>
         </th>
         <th scope="col fw-thin text-center d-flex justify-content-between" role="button" (click)="sortTable('email')">
           <svg xmlns="http://www.w3.org/2000/svg" class="opacity-50 me-2" width="0.63em" height="1em" viewBox="0 0 320 512">
@@ -121,9 +121,9 @@
 
         <section class="d-flex justify-content-evenly col-12">
           <br>
-          <img src="/assets/fallback-user-img.webp" alt="user-img" class="rounded-circle" style="width: 160px; aspect-ratio: 1; object-fit: contain;"/>
+          <img src="/assets/fallback-user-img.webp" alt="user-img" class="rounded-circle" style="width: 160px; aspect-ratio: 1; object-fit: contain;" />
 
-          <div  style="min-width: max-content; display: flex; gap: 4px;">
+          <div style="min-width: max-content; display: flex; gap: 4px;">
             <button *ngIf="modalState != 'add'" class="ic-eye btn btn-sm rounded-circle link-success border-0 p-1 mx-1" (click)="modalState = 'edit'">
               <i class="ic-pen">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -166,7 +166,7 @@
               <input type="password" class="form-control" id="password" placeholder="no changes" [(ngModel)]="modalData.password" [ngModelOptions]="{standalone: true}" [readonly]="modalState == 'preview'" (input)="validate()">
             </div>
           </div>
-          
+
           <small class="text-danger fs-9 d-block text-center col-12" [class.d-none]="modalState == 'preview' || modalFormErrors.formValid">You must fill all the fields correctly</small>
 
           <div class="text-center mt-4 mb-2">
