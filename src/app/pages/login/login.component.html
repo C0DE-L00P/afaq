@@ -5,14 +5,16 @@
         </div>
         <br><br>
         <label for="email">Email Address</label>
-        <input type="email" class="form-control" id="email" formControlName="email">
-        <small class="text-danger" [class.d-none]="loginForm.controls.email.invalid">Please, use a valid email</small>
+
+        <input type="email" class="form-control" id="email" formControlName="email" [class.is-invalid]="loginForm.controls.email.invalid && !loginForm.controls.email.pristine">
+        <small class="text-danger" [class.d-none]="!(loginForm.controls.email.invalid && !loginForm.controls.email.pristine)">Please, use a valid email</small>
         <br>
         <label for="password">Password</label>
-        <input type="password" class="form-control" id="password" formControlName="password">
+        <input type="password" class="form-control" id="password" formControlName="password" [class.is-invalid]="loginForm.controls.password.invalid && !loginForm.controls.password.pristine">
+        <small class="text-danger" [class.d-none]="!(loginForm.controls.password.invalid && !loginForm.controls.password.pristine)">Password must be longer than 8 chars</small>
         <br>
         <div class="text-center">
-            <button class="btn btn-sm px-5 btn-dark rounded-3 mx-auto" type="submit" [disabled]="!loginForm.valid">
+            <button class="btn btn-sm px-5 btn-dark rounded-3 mx-auto" type="submit" [disabled]="(loginForm.invalid && loginForm.pristine) || isLoading">
                 <span class="px-4">Sign in</span>
             </button>
         </div>

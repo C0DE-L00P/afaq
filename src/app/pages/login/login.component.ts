@@ -12,14 +12,15 @@ import { CommonModule } from '@angular/common';
   styleUrl: './login.component.css',
 })
 export class LoginComponent {
-  //TODO make it reactive form
-  //TODO Validations
+  
   constructor(
     private router: Router,
     private formBuilder: FormBuilder,
     private authService: AuthService
   ) {}
+
   errMsg: string = '';
+  isLoading = false;
 
   loginForm = this.formBuilder.group({
     email: ['', [Validators.required, Validators.email]],
@@ -27,6 +28,7 @@ export class LoginComponent {
   });
 
   async login() {
+    this.isLoading = true;
     this.errMsg = '';
     this.authService
       .adminLogin(
@@ -36,7 +38,6 @@ export class LoginComponent {
       .subscribe(
         (res) => {
           localStorage.setItem('token', res.token);
-          localStorage.setItem('userData', JSON.stringify(res.user));
           this.authService.userData = res.user
 
           // If all good
@@ -46,6 +47,7 @@ export class LoginComponent {
           console.log('HTTP Error', err);
           this.errMsg = err.message;
         },
+        ()=> this.isLoading=false
       );
   }
 }

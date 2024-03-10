@@ -9,22 +9,69 @@ import { StatisticsService } from '../../../core/statistics.service';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './home.component.html',
-  styleUrl: './home.component.css'
+  styleUrl: './home.component.css',
 })
 export class HomeComponent {
 
-  coordinates:Coordinate[]|null = []
+  locations: Coordinate[] | null = [];
+  paths:Coordinate[] = [];
+  financials: FinancialRecord[] = [];
+  usersStats:UsersStatsRecord[] = [];
 
-  constructor(private locationsService: LocationsService, private statisticsService: StatisticsService){}
+  constructor(
+    private locationsService: LocationsService,
+    private statisticsService: StatisticsService
+  ) {}
 
-  ngOnInit(){
+  ngOnInit() {
+    this.getLocations();
+    this.getPaths();
+
+    this.getFinancials();
+    this.getUsersStats();
+  }
+
+  getLocations() {
     this.locationsService.getLocations().subscribe(
-      res=> {
-        if(!res.success) throw res.message
+      (res) => {
+        if (!res.success) throw res.message;
 
-        this.coordinates = res.data
+        this.locations = res.data;
       },
-      err => console.error(err)
-    )
+      (err) => console.error(err)
+    );
+  }
+
+  getPaths() {
+    this.locationsService.getPaths().subscribe(
+      (res) => {
+        if (!res.success) throw res.message;
+
+        this.paths = res.data;
+      },
+      (err) => console.error(err)
+    );
+  }
+
+  getFinancials() {
+    this.statisticsService.getFinancialStats().subscribe(
+      (res) => {
+        if (!res.success) throw res.message;
+
+        this.financials = res.data;
+      },
+      (err) => console.error(err)
+    );
+  }
+
+  getUsersStats() {
+    this.statisticsService.getUserStats().subscribe(
+      (res) => {
+        if (!res.success) throw res.message;
+
+        this.usersStats = res.data;
+      },
+      (err) => console.error(err)
+    );
   }
 }

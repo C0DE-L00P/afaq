@@ -12,10 +12,11 @@ import { CommonModule } from '@angular/common';
 })
 export class LayoutComponent {
 
-  userData:any;
+  userData:any = {name: 'Admin',url: ''};
   notifications = [{title: 'test', createdAt: '03-03-2024'}];
 
   constructor(private authService: AuthService, private router:Router){
+    if(authService.userData)
     this.userData = authService.userData
   }
 

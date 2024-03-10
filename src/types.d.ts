@@ -24,3 +24,15 @@ interface Coordinate {
   longitude: number;
   id: number;
 }
+
+interface FinancialRecord {
+  month: string;
+  expense: number;
+  revenue: number;
+  id: number;
+}
+interface UsersStatsRecord {
+  month: string;
+  numberOfUsers: number;
+  id: number;
+}

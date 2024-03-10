@@ -1,1 +1,16 @@
-<p *ngFor="let co of coordinates">{{co.id}} - {{co.longitude}} - {{co.latitude}}</p>
+<section class="bg-white rounded-4 p-4 mb-4 mx-2">
+    <p *ngFor="let co of locations">{{co.id}} - {{co.longitude}} - {{co.latitude}}</p>
+</section>
+<section class="bg-white rounded-4 p-4 mb-4 mx-2">
+    <p *ngFor="let co of paths">{{co.id}} - {{co.longitude}} - {{co.latitude}}</p>
+</section>
+
+<section class="bg-white rounded-4 p-4 mb-4 mx-2">
+    <h3>Financial</h3>
+    <div *ngFor="let record of financials">{{record.month}} - {{record.revenue}}</div>
+</section>
+
+<section class="bg-white rounded-4 p-4 mb-4 mx-2">
+    <h3>Number of users</h3>
+    <div *ngFor="let record of usersStats">{{record.month}} - {{record.numberOfUsers}}</div>
+</section>

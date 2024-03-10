@@ -4,6 +4,7 @@ import { LoginComponent } from './pages/login/login.component';
 import { HomeComponent } from './pages/dashboard/home/home.component';
 import { LayoutComponent } from './pages/dashboard/layout/layout.component';
 import { CanActivateDashboard, CanActivateLogin } from './core/auth.guard';
+import { NotificationsComponent } from './pages/dashboard/notifications/notifications.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -17,6 +18,7 @@ export const routes: Routes = [
       { path: '', redirectTo: 'home', pathMatch: 'full' },
       { path: 'home', component: HomeComponent },
       { path: 'users', component: UsersComponent },
+      { path: 'notifications', component: NotificationsComponent },
       { path: '**', redirectTo: '' },
     ],
   },
