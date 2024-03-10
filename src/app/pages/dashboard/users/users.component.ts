@@ -32,42 +32,65 @@ export class UsersComponent {
     passLength: false,
     usernameReg: false,
     emailReg: false,
-    formValid: true
-  }
+    formValid: true,
+  };
 
-  validate(){
-    this.modalFormErrors.fill = this.modalData.email == '' || this.modalData.password == '' || this.modalData.userName == '' || this.modalData.name == ''
-    this.modalFormErrors.passLength = !this.modalData.password || this.modalData.password.length < 8
-    this.modalFormErrors.emailReg = !emailPattern.test(this.modalData.email)
-    this.modalFormErrors.usernameReg = !usernamePattern.test(this.modalData.userName)
+  validate() {
+    this.modalFormErrors.fill =
+      this.modalData.email == '' ||
+      this.modalData.password == '' ||
+      this.modalData.userName == '' ||
+      this.modalData.name == '';
+    this.modalFormErrors.passLength =
+      !this.modalData.password || this.modalData.password.length < 8;
+    this.modalFormErrors.emailReg = !emailPattern.test(this.modalData.email);
+    this.modalFormErrors.usernameReg = !usernamePattern.test(
+      this.modalData.userName
+    );
 
-    this.modalFormErrors.formValid = !this.modalFormErrors.passLength && !this.modalFormErrors.fill && !this.modalFormErrors.emailReg && !this.modalFormErrors.usernameReg
+    this.modalFormErrors.formValid =
+      !this.modalFormErrors.passLength &&
+      !this.modalFormErrors.fill &&
+      !this.modalFormErrors.emailReg &&
+      !this.modalFormErrors.usernameReg;
   }
   modalData: any = nullModal;
   modalState: 'preview' | 'add' | 'edit' = 'preview';
 
-  addUser(){
-    this.usersService.addUser(
-      this.modalData.userName,
-      this.modalData.name,
-      this.modalData.email,
-      this.modalData.password,
-      this.modalData.file,
-      ).subscribe(res=> {
-        this.isModalOpen = false;
-      }, err=> console.error(err))
+  addUser() {
+    this.usersService
+      .addUser(
+        this.modalData.userName,
+        this.modalData.name,
+        this.modalData.email,
+        this.modalData.password,
+        this.modalData.file
+      )
+      .subscribe(
+        (res) => {
+          this.isModalOpen = false;
+          this.loadUsers(this.options.pageNumber, this.options.pageSize);
+        },
+        (err) => console.error(err)
+      );
   }
-  editUser(){
-    this.usersService.updateUser(
-      this.modalData.id,
-      this.modalData.userName,
-      this.modalData.name,
-      this.modalData.email,
-      this.modalData.password,
-      this.modalData.file,
-    ).subscribe(res=> {
-      this.isModalOpen = false;
-    }, err=> console.error(err))
+
+  editUser() {
+    this.usersService
+      .updateUser(
+        this.modalData.id,
+        this.modalData.name,
+        this.modalData.email,
+        this.modalData.userName,
+        this.modalData.password,
+        this.modalData.file
+      )
+      .subscribe(
+        (res: any) => {
+          this.isModalOpen = false;
+        },
+        (err: any) => console.error(err)
+      );
   }
 
   users: User[] = [];
@@ -102,7 +125,7 @@ export class UsersComponent {
   }
 
   sortTable(factor: string) {
-    this.users.sort((a:any, b:any) => {
+    this.users.sort((a: any, b: any) => {
       if (a[factor] < b[factor]) {
         return -1;
       }
@@ -116,7 +139,7 @@ export class UsersComponent {
   changePage(state: 'next' | 'prev') {
     this.options.pageNumber =
       this.options.pageNumber + (state == 'next' ? 1 : -1);
-    this.loadUsers(this.options.pageNumber,this.options.pageSize);
+    this.loadUsers(this.options.pageNumber, this.options.pageSize);
   }
 
   deleteUser(id: number) {
@@ -132,5 +155,27 @@ export class UsersComponent {
     this.modalData = user ?? nullModal;
     this.modalState = state;
     this.isModalOpen = true;
+    
+    if (state != 'add')
+      this.usersService.getUser(this.modalData.id).subscribe(
+        (res) => {
+          this.modalData.password = res.password;
+        },
+        (err) => console.error(err)
+      );
+  }
+
+  imageSrc: string | ArrayBuffer | null = null;
+  readURL(event: any): void {
+    if (event.target)
+      if (event.target.files && event.target.files[0]) {
+        const file = event.target.files[0];
+        this.modalData.file = event.target.files[0];
+
+        const reader = new FileReader();
+        reader.onload = (e) => (this.imageSrc = reader.result);
+
+        reader.readAsDataURL(file);
+      }
   }
 }

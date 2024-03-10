@@ -1,3 +1,4 @@
+import { UsersService } from './../../core/users.service';
 import { AuthService } from './../../core/auth.service';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
@@ -12,11 +13,11 @@ import { CommonModule } from '@angular/common';
   styleUrl: './login.component.css',
 })
 export class LoginComponent {
-  
   constructor(
     private router: Router,
     private formBuilder: FormBuilder,
-    private authService: AuthService
+    private authService: AuthService,
+    // private usersService: UsersService,
   ) {}
 
   errMsg: string = '';
@@ -39,6 +40,10 @@ export class LoginComponent {
         (res) => {
           localStorage.setItem('token', res.token);
           this.authService.userData = res.user
+          
+
+          // //Last login
+          // this.usersService.updateUser(res.user.id, res.user.userName)
 
           // If all good
           this.router.navigate(['dashboard']);

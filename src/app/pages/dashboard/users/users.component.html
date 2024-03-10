@@ -114,17 +114,50 @@
     <div class="bg-dark bg-opacity-50 position-fixed top-0 bottom-0 start-0 end-0 z-2" role="button" (click)="isModalOpen = false"></div>
     <div class="modal-content z-3">
       <form class="modal-body" (submit)="modalState == 'add'? addUser(): editUser()">
-        <div class="d-flex justify-content-between align-items-center">
+        <div class="d-flex justify-content-between align-items-center px-4">
           <h5 class="modal-title">User Details</h5>
           <button type="button" class="btn-close" (click)="isModalOpen = false" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
 
-        <section class="d-flex justify-content-evenly col-12">
-          <br>
-          <img src="/assets/fallback-user-img.webp" alt="user-img" class="rounded-circle" style="width: 160px; aspect-ratio: 1; object-fit: contain;" />
+        <section class="d-flex justify-content-between col-12 px-4 mb-4">
+          <div class="flex-grow-1">
+            <div class="d-flex gap-2 align-items-center align-self-start mt-3" *ngIf="modalState != 'preview'" >
+              <div>
+                <input type="file" accept="image/*" id="image_picker" class="d-none" (change)="readURL($event);">
+                <img [src]="imageSrc || '/assets/image-placeholder.webp'" alt="user image" class="rounded-circle" style="width: 80px; aspect-ratio: 1; object-fit: contain;">
+              </div>
 
-          <div style="min-width: max-content; display: flex; gap: 4px;">
-            <button *ngIf="modalState != 'add'" class="ic-eye btn btn-sm rounded-circle link-success border-0 p-1 mx-1" (click)="modalState = 'edit'">
+              <div>
+                <label for="image_picker" class="btn btn-sm btn-outline-dark rounded-pill">
+                  <svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M6.00033 7.16667C6.73671 7.16667 7.33366 6.56971 7.33366 5.83333C7.33366 5.09695 6.73671 4.5 6.00033 4.5C5.26395 4.5 4.66699 5.09695 4.66699 5.83333C4.66699 6.56971 5.26395 7.16667 6.00033 7.16667Z" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" />
+                    <path d="M8.66634 1.83333H5.99967C2.66634 1.83333 1.33301 3.16667 1.33301 6.5V10.5C1.33301 13.8333 2.66634 15.1667 5.99967 15.1667H9.99967C13.333 15.1667 14.6663 13.8333 14.6663 10.5V7.16667" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" />
+                    <path d="M12 1.83333V5.83333L13.3333 4.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" />
+                    <path d="M12.0003 5.83333L10.667 4.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" />
+                    <path d="M1.78027 13.1333L5.06694 10.9267C5.59361 10.5733 6.35361 10.6133 6.82694 11.02L7.04694 11.2133C7.56694 11.66 8.40694 11.66 8.92694 11.2133L11.7003 8.83333C12.2203 8.38667 13.0603 8.38667 13.5803 8.83333L14.6669 9.76667" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+                  <small class="fw-bold ms-1">Upload Photo</small>
+                </label>
+                <small class="text-secondary fs-9 d-block mt-1 ms-1">At least 256*256 px PNG or JPG file.</small>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex-grow-1 text-center" *ngIf="modalState == 'preview'">
+            <img src="/assets/fallback-user-img.webp" alt="user-img" class="rounded-circle shadow-sm" style="width: 160px; aspect-ratio: 1; object-fit: contain;" />
+          </div>
+
+          <div style="min-width: max-content; display: flex; gap: 4px;" class="flex-grow-1">
+            <button *ngIf="modalState == 'edit'" class="ic-eye btn btn-sm rounded-circle link-primary border-0 p-1 mx-1" (click)="modalState = 'preview'">
+              <i class="ic-eye">
+                
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M15.5799 12C15.5799 13.98 13.9799 15.58 11.9999 15.58C10.0199 15.58 8.41992 13.98 8.41992 12C8.41992 10.02 10.0199 8.42 11.9999 8.42C13.9799 8.42 15.5799 10.02 15.5799 12Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                <path d="M11.9998 20.27C15.5298 20.27 18.8198 18.19 21.1098 14.59C22.0098 13.18 22.0098 10.81 21.1098 9.4C18.8198 5.8 15.5298 3.72 11.9998 3.72C8.46984 3.72 5.17984 5.8 2.88984 9.4C1.98984 10.81 1.98984 13.18 2.88984 14.59C5.17984 18.19 8.46984 20.27 11.9998 20.27Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+              </i>
+            </button>
+            <button *ngIf="modalState == 'preview'" class="ic-eye btn btn-sm rounded-circle link-success border-0 p-1 mx-1" (click)="modalState = 'edit'">
               <i class="ic-pen">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M15 6L18 9M13 20H21M5 16L4 20L8 19L19.586 7.414C19.9609 7.03894 20.1716 6.53033 20.1716 6C20.1716 5.46967 19.9609 4.96105 19.586 4.586L19.414 4.414C19.0389 4.03906 18.5303 3.82843 18 3.82843C17.4697 3.82843 16.9611 4.03906 16.586 4.414L5 16Z" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" />
