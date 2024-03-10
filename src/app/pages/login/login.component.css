@@ -1,0 +1,11 @@
+form{
+    max-width: 658px;
+    width: 90%;
+    margin-inline: auto;
+}
+
+main{
+    display: grid;
+    place-content: center;
+    height: 100vh;
+}

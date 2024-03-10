@@ -5,7 +5,6 @@ import { HomeComponent } from './pages/dashboard/home/home.component';
 import { LayoutComponent } from './pages/dashboard/layout/layout.component';
 import { CanActivateDashboard, CanActivateLogin } from './core/auth.guard';
 
-// TODO apply the guard
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent, canActivate: [CanActivateLogin] },

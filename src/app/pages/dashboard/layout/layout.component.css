@@ -1,0 +1,5 @@
+.user-img{
+    width: 40px;
+    aspect-ratio: 1;
+    border: 1px solid var(--bs-warning);
+}

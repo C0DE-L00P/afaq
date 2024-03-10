@@ -1,18 +1,21 @@
-<main class="container h-100">
-    <div class="container">
+<main class="container">
+    <form class="block my-auto mx-auto" [formGroup]="loginForm" (submit)="login()">
+        <div class="text-center">
+            <img src="/assets/logo.webp" alt="Logo" style="width: 90%; margin-inline: auto">
+        </div>
         <br><br>
-        <form action="" class="block my-auto mx-auto" [formGroup]="loginForm" (submit)="login()">
-            <h1 class="text-green">Miso <span class="inline-block bg-warning bg-opacity-10 pe-6 py-2 text-black arrow-shape">whey</span></h1>
-            <br><br>
-            <label for="email">Email Address</label>
-            <input type="email" class="form-control" id="email" formControlName="email">
-            <small class="text-danger" [class.d-none]="loginForm.controls.email.invalid">Please, use a valid email</small>
-            <br>
-            <label for="password">Password</label>
-            <input type="password" class="form-control" id="password" formControlName="password">
-            <br>
-            <button class="btn btn-sm px-8 btn-dark" type="submit" [disabled]="!loginForm.valid">Sign in</button>
-            <small class="text-danger d-block" *ngIf="errMsg != ''">{{errMsg}}</small>
-        </form>
-    </div>
+        <label for="email">Email Address</label>
+        <input type="email" class="form-control" id="email" formControlName="email">
+        <small class="text-danger" [class.d-none]="loginForm.controls.email.invalid">Please, use a valid email</small>
+        <br>
+        <label for="password">Password</label>
+        <input type="password" class="form-control" id="password" formControlName="password">
+        <br>
+        <div class="text-center">
+            <button class="btn btn-sm px-5 btn-dark rounded-3 mx-auto" type="submit" [disabled]="!loginForm.valid">
+                <span class="px-4">Sign in</span>
+            </button>
+        </div>
+        <small class="text-danger d-block text-center" *ngIf="errMsg != ''">Wrong email or password credentials</small>
+    </form>
 </main>

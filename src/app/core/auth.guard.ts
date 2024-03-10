@@ -10,7 +10,7 @@ export const CanActivateDashboard = () => {
   if (authService.userData) return true;
   let token = localStorage.getItem('token');
   if (!!token && token != '') {
-    
+
     //Get userData and access
     let { nameid } = interpretToken(token);
 
@@ -32,8 +32,8 @@ export const CanActivateDashboard = () => {
 export const CanActivateLogin = () => {
   const router = inject(Router);
 
-  //   //   TOOD this for debugging perpuse remove it when done
-  //   return true;
+    //   TOOD this for debugging perpuse remove it when done
+    return true;
 
   if (!CanActivateDashboard) {
     return true;
