@@ -26,7 +26,7 @@ const usernamePattern = /^[^\s@]+$/;
 })
 export class UsersComponent {
   isLoading = false;
-  isModalOpen = true;
+  isModalOpen = false;
   modalFormErrors = {
     fill: false,
     passLength: false,
@@ -120,14 +120,12 @@ export class UsersComponent {
   }
 
   deleteUser(id: number) {
-    alert('deleted');
-    // this.usersService.deleteUser(id).subscribe(
-    //   (res) => {
-    //     //TODO check if 200 OK or not
-    //     this.loadUsers();
-    //   },
-    //   (err) => console.log(err)
-    // );
+    this.usersService.deleteUser(id).subscribe(
+      (res) => {
+        this.loadUsers();
+      },
+      (err) => console.log(err)
+    );
   }
 
   showModal(user: User | null, state: 'preview' | 'edit' | 'add') {
