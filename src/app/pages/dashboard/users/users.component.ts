@@ -12,7 +12,10 @@ const nullModal: User = {
   userName: '',
   name: '',
   email: '',
+  password: '',
 };
+const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+const usernamePattern = /^[^\s@]+$/;
 
 @Component({
   selector: 'app-users',
@@ -22,11 +25,50 @@ const nullModal: User = {
   styleUrl: './users.component.css',
 })
 export class UsersComponent {
-  //TODO modal affairs
+  isLoading = false;
+  isModalOpen = true;
+  modalFormErrors = {
+    fill: false,
+    passLength: false,
+    usernameReg: false,
+    emailReg: false,
+    formValid: true
+  }
 
-  isModalOpen = false;
-  modalData: User = nullModal;
+  validate(){
+    this.modalFormErrors.fill = this.modalData.email == '' || this.modalData.password == '' || this.modalData.userName == '' || this.modalData.name == ''
+    this.modalFormErrors.passLength = !this.modalData.password || this.modalData.password.length < 8
+    this.modalFormErrors.emailReg = !emailPattern.test(this.modalData.email)
+    this.modalFormErrors.usernameReg = !usernamePattern.test(this.modalData.userName)
+
+    this.modalFormErrors.formValid = !this.modalFormErrors.passLength && !this.modalFormErrors.fill && !this.modalFormErrors.emailReg && !this.modalFormErrors.usernameReg
+  }
+  modalData: any = nullModal;
   modalState: 'preview' | 'add' | 'edit' = 'preview';
+
+  addUser(){
+    this.usersService.addUser(
+      this.modalData.userName,
+      this.modalData.name,
+      this.modalData.email,
+      this.modalData.password,
+      this.modalData.file,
+      ).subscribe(res=> {
+        this.isModalOpen = false;
+      }, err=> console.error(err))
+  }
+  editUser(){
+    this.usersService.updateUser(
+      this.modalData.id,
+      this.modalData.userName,
+      this.modalData.name,
+      this.modalData.email,
+      this.modalData.password,
+      this.modalData.file,
+    ).subscribe(res=> {
+      this.isModalOpen = false;
+    }, err=> console.error(err))
+  }
 
   users: User[] = [];
   options = {
@@ -78,13 +120,14 @@ export class UsersComponent {
   }
 
   deleteUser(id: number) {
-    this.usersService.deleteUser(id).subscribe(
-      (res) => {
-        //TODO check if 200 OK or not
-        this.loadUsers();
-      },
-      (err) => console.log(err)
-    );
+    alert('deleted');
+    // this.usersService.deleteUser(id).subscribe(
+    //   (res) => {
+    //     //TODO check if 200 OK or not
+    //     this.loadUsers();
+    //   },
+    //   (err) => console.log(err)
+    // );
   }
 
   showModal(user: User | null, state: 'preview' | 'edit' | 'add') {

@@ -32,8 +32,8 @@ export const CanActivateDashboard = () => {
 export const CanActivateLogin = () => {
   const router = inject(Router);
 
-    //   TOOD this for debugging perpuse remove it when done
-    return true;
+    // //   for debugging perpuse remove it when done
+    // return true;
 
   if (!CanActivateDashboard) {
     return true;

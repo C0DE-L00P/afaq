@@ -1,151 +1,182 @@
 <div class="shadow rounded-2 bg-white p-3 py-2 d-flex justify-content-between align-items-center">
-    <h1 class="fw-bold h4">Users</h1>
-    <button class="btn btn-dark rounded-4 px-4 fs-7" (click)="showModal(null, 'add')">Add User</button>
+  <h1 class="fw-bold h4">Users</h1>
+  <button class="btn btn-dark rounded-4 px-4 fs-7" (click)="showModal(null, 'add')">Add User</button>
 </div>
 <br>
 <main class="shadow rounded-2 bg-white p-3">
-    <h2 class="h5 mb-0">All Users</h2>
-    <small class="text-secondary">{{totalUsersCount}} users</small>
+  <h2 class="h5 mb-0">All Users</h2>
+  <small class="text-secondary">{{totalUsersCount}} users</small>
 
-    <!-- TODO make the table responsive -->
-    <table class="table text-secondary">
-        <thead>
-          <tr>
-            <th scope="col fw-thin text-center">Photo</th>
-            <th scope="col fw-thin text-center d-flex justify-content-between" role="button" (click)="sortTable('name')">
-                <svg xmlns="http://www.w3.org/2000/svg" class="opacity-50 me-2" width="0.63em" height="1em" viewBox="0 0 320 512"><path fill="currentColor" d="M41 288h238c21.4 0 32.1 25.9 17 41L177 448c-9.4 9.4-24.6 9.4-33.9 0L24 329c-15.1-15.1-4.4-41 17-41m255-105L177 64c-9.4-9.4-24.6-9.4-33.9 0L24 183c-15.1 15.1-4.4 41 17 41h238c21.4 0 32.1-25.9 17-41"/></svg>
-                <span>Full Name</span>
-            </th>
-            <th scope="col fw-thin text-center d-flex justify-content-between" role="button" (click)="sortTable('userName')">
-                <svg xmlns="http://www.w3.org/2000/svg" class="opacity-50 me-2" width="0.63em" height="1em" viewBox="0 0 320 512">
-                    <path fill="currentColor" d="M41 288h238c21.4 0 32.1 25.9 17 41L177 448c-9.4 9.4-24.6 9.4-33.9 0L24 329c-15.1-15.1-4.4-41 17-41m255-105L177 64c-9.4-9.4-24.6-9.4-33.9 0L24 183c-15.1 15.1-4.4 41 17 41h238c21.4 0 32.1-25.9 17-41"/>
-                </svg>
-                <span>User Name</span>
-            </th>
-            <th scope="col fw-thin text-center d-flex justify-content-between" role="button" (click)="sortTable('email')">
-                <svg xmlns="http://www.w3.org/2000/svg" class="opacity-50 me-2" width="0.63em" height="1em" viewBox="0 0 320 512"><path fill="currentColor" d="M41 288h238c21.4 0 32.1 25.9 17 41L177 448c-9.4 9.4-24.6 9.4-33.9 0L24 329c-15.1-15.1-4.4-41 17-41m255-105L177 64c-9.4-9.4-24.6-9.4-33.9 0L24 183c-15.1 15.1-4.4 41 17 41h238c21.4 0 32.1-25.9 17-41"/></svg>
-                <span>Email</span>
-            </th>
-            <th scope="col fw-thin text-center">Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-        <tr *ngIf="users.length == 0">
-            <td colspan="5">
-                <div class="text-center my-4">
-                    <img src="/assets/fallback-user-img.webp" alt="fallback user img" style="width: 120px;">
-                    <p class="text-secondary fw-semibold">No Users yet</p>
-                </div>
-            </td>
-        </tr>
-          <tr *ngFor="let user of users">
-            <td>
-                <!-- <img src="{{user.url}}" alt="user image" style="width: 40px; aspect-ratio: 1;" appImgFall="/assets/fallback-user-img.webp"> -->
-                <img src="/assets/fallback-user-img.webp" class="rounded-circle" alt="user image" style="width: 40px; aspect-ratio: 1; object-fit: contain;" appImgFall>
-            </td>
-            <td class="text-dark">{{user.name}}</td>
-            <td>{{user.userName}}</td>
-            <td>{{user.email}}</td> 
+  <!-- TODO make the table responsive -->
+  <table class="table text-secondary">
+    <thead>
+      <tr>
+        <th scope="col fw-thin text-center">Photo</th>
+        <th scope="col fw-thin text-center d-flex justify-content-between" role="button" (click)="sortTable('name')">
+          <svg xmlns="http://www.w3.org/2000/svg" class="opacity-50 me-2" width="0.63em" height="1em" viewBox="0 0 320 512">
+            <path fill="currentColor" d="M41 288h238c21.4 0 32.1 25.9 17 41L177 448c-9.4 9.4-24.6 9.4-33.9 0L24 329c-15.1-15.1-4.4-41 17-41m255-105L177 64c-9.4-9.4-24.6-9.4-33.9 0L24 183c-15.1 15.1-4.4 41 17 41h238c21.4 0 32.1-25.9 17-41" />
+          </svg>
+          <span>Full Name</span>
+        </th>
+        <th scope="col fw-thin text-center d-flex justify-content-between" role="button" (click)="sortTable('userName')">
+          <svg xmlns="http://www.w3.org/2000/svg" class="opacity-50 me-2" width="0.63em" height="1em" viewBox="0 0 320 512">
+            <path fill="currentColor" d="M41 288h238c21.4 0 32.1 25.9 17 41L177 448c-9.4 9.4-24.6 9.4-33.9 0L24 329c-15.1-15.1-4.4-41 17-41m255-105L177 64c-9.4-9.4-24.6-9.4-33.9 0L24 183c-15.1 15.1-4.4 41 17 41h238c21.4 0 32.1-25.9 17-41" />
+          </svg>
+          <span>User Name</span>
+        </th>
+        <th scope="col fw-thin text-center d-flex justify-content-between" role="button" (click)="sortTable('email')">
+          <svg xmlns="http://www.w3.org/2000/svg" class="opacity-50 me-2" width="0.63em" height="1em" viewBox="0 0 320 512">
+            <path fill="currentColor" d="M41 288h238c21.4 0 32.1 25.9 17 41L177 448c-9.4 9.4-24.6 9.4-33.9 0L24 329c-15.1-15.1-4.4-41 17-41m255-105L177 64c-9.4-9.4-24.6-9.4-33.9 0L24 183c-15.1 15.1-4.4 41 17 41h238c21.4 0 32.1-25.9 17-41" />
+          </svg>
+          <span>Email</span>
+        </th>
+        <th scope="col fw-thin text-center">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngIf="users.length == 0">
+        <td colspan="5">
+          <div class="text-center my-4">
+            <img src="/assets/fallback-user-img.webp" alt="fallback user img" style="width: 120px;">
+            <p class="text-secondary fw-semibold">No Users yet</p>
+          </div>
+        </td>
+      </tr>
+      <tr *ngFor="let user of users">
+        <td>
+          <!-- <img src="{{user.url}}" alt="user image" style="width: 40px; aspect-ratio: 1;" appImgFall="/assets/fallback-user-img.webp"> -->
+          <img src="/assets/fallback-user-img.webp" class="rounded-circle" alt="user image" style="width: 40px; aspect-ratio: 1; object-fit: contain;" appImgFall>
+        </td>
+        <td class="text-dark">{{user.name}}</td>
+        <td>{{user.userName}}</td>
+        <td>{{user.email}}</td>
 
-            <td class="text-center action-btns">
-                    <button class="ic-eye btn btn-sm rounded-circle link-primary border-0 p-1 mx-1" (click)="showModal(user, 'preview')">
-                        <i class="ic-eye">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M15.5799 12C15.5799 13.98 13.9799 15.58 11.9999 15.58C10.0199 15.58 8.41992 13.98 8.41992 12C8.41992 10.02 10.0199 8.42 11.9999 8.42C13.9799 8.42 15.5799 10.02 15.5799 12Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                <path d="M11.9998 20.27C15.5298 20.27 18.8198 18.19 21.1098 14.59C22.0098 13.18 22.0098 10.81 21.1098 9.4C18.8198 5.8 15.5298 3.72 11.9998 3.72C8.46984 3.72 5.17984 5.8 2.88984 9.4C1.98984 10.81 1.98984 13.18 2.88984 14.59C5.17984 18.19 8.46984 20.27 11.9998 20.27Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
-                        </i>
-                    </button>
-                    <button class="ic-eye btn btn-sm rounded-circle link-success border-0 p-1 mx-1" (click)="showModal(user, 'edit')">
-                        <i class="ic-pen">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M15 6L18 9M13 20H21M5 16L4 20L8 19L19.586 7.414C19.9609 7.03894 20.1716 6.53033 20.1716 6C20.1716 5.46967 19.9609 4.96105 19.586 4.586L19.414 4.414C19.0389 4.03906 18.5303 3.82843 18 3.82843C17.4697 3.82843 16.9611 4.03906 16.586 4.414L5 16Z" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
-                                </svg>                                
-                        </i>
-                    </button>
-                    <button class="ic-eye btn btn-sm rounded-circle link-danger border-0 p-1 mx-1" (click)="deleteUser(user.id)">
-                        <i class="ic-trash">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M10.1999 4.8H13.7999C13.7999 4.32261 13.6103 3.86477 13.2727 3.52721C12.9351 3.18964 12.4773 3 11.9999 3C11.5225 3 11.0647 3.18964 10.7271 3.52721C10.3895 3.86477 10.1999 4.32261 10.1999 4.8ZM8.9999 4.8C8.9999 4.00435 9.31597 3.24129 9.87858 2.67868C10.4412 2.11607 11.2043 1.8 11.9999 1.8C12.7956 1.8 13.5586 2.11607 14.1212 2.67868C14.6838 3.24129 14.9999 4.00435 14.9999 4.8H20.9999C21.159 4.8 21.3116 4.86321 21.4242 4.97574C21.5367 5.08826 21.5999 5.24087 21.5999 5.4C21.5999 5.55913 21.5367 5.71174 21.4242 5.82426C21.3116 5.93678 21.159 6 20.9999 6H19.7351L18.3023 18.4128C18.201 19.2902 17.7807 20.0998 17.1213 20.6875C16.462 21.2752 15.6096 21.5999 14.7263 21.6H9.2735C8.39025 21.5999 7.53784 21.2752 6.87847 20.6875C6.2191 20.0998 5.79878 19.2902 5.6975 18.4128L4.2647 6H2.9999C2.84077 6 2.68816 5.93678 2.57564 5.82426C2.46312 5.71174 2.3999 5.55913 2.3999 5.4C2.3999 5.24087 2.46312 5.08826 2.57564 4.97574C2.68816 4.86321 2.84077 4.8 2.9999 4.8H8.9999ZM6.8891 18.276C6.95681 18.8609 7.23716 19.4005 7.6768 19.7921C8.11645 20.1837 8.68472 20.4001 9.2735 20.4H14.7263C15.3151 20.4001 15.8834 20.1837 16.323 19.7921C16.7626 19.4005 17.043 18.8609 17.1107 18.276L18.5267 6H5.4731L6.8891 18.276ZM10.1999 9C10.359 9 10.5116 9.06321 10.6242 9.17573C10.7367 9.28826 10.7999 9.44087 10.7999 9.6V16.8C10.7999 16.9591 10.7367 17.1117 10.6242 17.2243C10.5116 17.3368 10.359 17.4 10.1999 17.4C10.0408 17.4 9.88816 17.3368 9.77564 17.2243C9.66312 17.1117 9.5999 16.9591 9.5999 16.8V9.6C9.5999 9.44087 9.66312 9.28826 9.77564 9.17573C9.88816 9.06321 10.0408 9 10.1999 9ZM14.3999 9.6C14.3999 9.44087 14.3367 9.28826 14.2242 9.17573C14.1116 9.06321 13.959 9 13.7999 9C13.6408 9 13.4882 9.06321 13.3756 9.17573C13.2631 9.28826 13.1999 9.44087 13.1999 9.6V16.8C13.1999 16.9591 13.2631 17.1117 13.3756 17.2243C13.4882 17.3368 13.6408 17.4 13.7999 17.4C13.959 17.4 14.1116 17.3368 14.2242 17.2243C14.3367 17.1117 14.3999 16.9591 14.3999 16.8V9.6Z" fill="currentColor"/>
-                                </svg>                                
-                        </i>
-                    </button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+        <td class="action-btns">
+          <button class="ic-eye btn btn-sm rounded-circle link-primary border-0 p-1 mx-1" (click)="showModal(user, 'preview')">
+            <i class="ic-eye">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M15.5799 12C15.5799 13.98 13.9799 15.58 11.9999 15.58C10.0199 15.58 8.41992 13.98 8.41992 12C8.41992 10.02 10.0199 8.42 11.9999 8.42C13.9799 8.42 15.5799 10.02 15.5799 12Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                <path d="M11.9998 20.27C15.5298 20.27 18.8198 18.19 21.1098 14.59C22.0098 13.18 22.0098 10.81 21.1098 9.4C18.8198 5.8 15.5298 3.72 11.9998 3.72C8.46984 3.72 5.17984 5.8 2.88984 9.4C1.98984 10.81 1.98984 13.18 2.88984 14.59C5.17984 18.19 8.46984 20.27 11.9998 20.27Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </i>
+          </button>
+          <button class="ic-eye btn btn-sm rounded-circle link-success border-0 p-1 mx-1" (click)="showModal(user, 'edit')">
+            <i class="ic-pen">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M15 6L18 9M13 20H21M5 16L4 20L8 19L19.586 7.414C19.9609 7.03894 20.1716 6.53033 20.1716 6C20.1716 5.46967 19.9609 4.96105 19.586 4.586L19.414 4.414C19.0389 4.03906 18.5303 3.82843 18 3.82843C17.4697 3.82843 16.9611 4.03906 16.586 4.414L5 16Z" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </i>
+          </button>
+          <button class="ic-eye btn btn-sm rounded-circle link-danger border-0 p-1 mx-1" (click)="deleteUser(user.id)">
+            <i class="ic-trash">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M10.1999 4.8H13.7999C13.7999 4.32261 13.6103 3.86477 13.2727 3.52721C12.9351 3.18964 12.4773 3 11.9999 3C11.5225 3 11.0647 3.18964 10.7271 3.52721C10.3895 3.86477 10.1999 4.32261 10.1999 4.8ZM8.9999 4.8C8.9999 4.00435 9.31597 3.24129 9.87858 2.67868C10.4412 2.11607 11.2043 1.8 11.9999 1.8C12.7956 1.8 13.5586 2.11607 14.1212 2.67868C14.6838 3.24129 14.9999 4.00435 14.9999 4.8H20.9999C21.159 4.8 21.3116 4.86321 21.4242 4.97574C21.5367 5.08826 21.5999 5.24087 21.5999 5.4C21.5999 5.55913 21.5367 5.71174 21.4242 5.82426C21.3116 5.93678 21.159 6 20.9999 6H19.7351L18.3023 18.4128C18.201 19.2902 17.7807 20.0998 17.1213 20.6875C16.462 21.2752 15.6096 21.5999 14.7263 21.6H9.2735C8.39025 21.5999 7.53784 21.2752 6.87847 20.6875C6.2191 20.0998 5.79878 19.2902 5.6975 18.4128L4.2647 6H2.9999C2.84077 6 2.68816 5.93678 2.57564 5.82426C2.46312 5.71174 2.3999 5.55913 2.3999 5.4C2.3999 5.24087 2.46312 5.08826 2.57564 4.97574C2.68816 4.86321 2.84077 4.8 2.9999 4.8H8.9999ZM6.8891 18.276C6.95681 18.8609 7.23716 19.4005 7.6768 19.7921C8.11645 20.1837 8.68472 20.4001 9.2735 20.4H14.7263C15.3151 20.4001 15.8834 20.1837 16.323 19.7921C16.7626 19.4005 17.043 18.8609 17.1107 18.276L18.5267 6H5.4731L6.8891 18.276ZM10.1999 9C10.359 9 10.5116 9.06321 10.6242 9.17573C10.7367 9.28826 10.7999 9.44087 10.7999 9.6V16.8C10.7999 16.9591 10.7367 17.1117 10.6242 17.2243C10.5116 17.3368 10.359 17.4 10.1999 17.4C10.0408 17.4 9.88816 17.3368 9.77564 17.2243C9.66312 17.1117 9.5999 16.9591 9.5999 16.8V9.6C9.5999 9.44087 9.66312 9.28826 9.77564 9.17573C9.88816 9.06321 10.0408 9 10.1999 9ZM14.3999 9.6C14.3999 9.44087 14.3367 9.28826 14.2242 9.17573C14.1116 9.06321 13.959 9 13.7999 9C13.6408 9 13.4882 9.06321 13.3756 9.17573C13.2631 9.28826 13.1999 9.44087 13.1999 9.6V16.8C13.1999 16.9591 13.2631 17.1117 13.3756 17.2243C13.4882 17.3368 13.6408 17.4 13.7999 17.4C13.959 17.4 14.1116 17.3368 14.2242 17.2243C14.3367 17.1117 14.3999 16.9591 14.3999 16.8V9.6Z" fill="currentColor" />
+              </svg>
+            </i>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 
-      <div class="d-flex justify-content-between align-items-center flex-wrap" >
-        <div class="d-flex gap-2 align-items-center text-secondary">
-            <span style="min-width: max-content;">Rows Per Page</span>
-            <select name="perpage" id="perpage" class="form-control form-control-sm" [(ngModel)]="options.pageSize" [ngModelOptions]="{standalone: true}" (change)="options.pageNumber = totalUsersCount > options.pageSize? options.pageNumber:1; loadUsers(options.pageNumber ,options.pageSize)">
-                <option value="5">5</option>
-                <option value="10" selected>10</option>
-                <option value="25">25</option>
-                <option value="50">50</option>
-                <option value="100">100</option>
-            </select>
-        </div>
-        <small class="text-secondary">
-            {{options.pageNumber}} of {{pagesCount}}
-            <button [disabled]="options.pageNumber <= 1" class="btn btn-sm btn-secondary border-0 rounded-0 rounded-start ms-2" [class]="options.pageNumber > 1? 'bg-secondary bg-opacity-25':'bg-light'" (click)="changePage('prev')" >
-                <svg width="7" height="14" viewBox="0 0 7 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M0.98102 5.97201L5.54702 0.272009C5.60649 0.187817 5.68531 0.119131 5.77684 0.0717234C5.86837 0.0243161 5.96994 -0.000427246 6.07302 -0.000427246C6.1761 -0.000427246 6.27767 0.0243161 6.3692 0.0717234C6.46073 0.119131 6.53955 0.187817 6.59902 0.272009C6.74018 0.461781 6.81641 0.691996 6.81641 0.928508C6.81641 1.16502 6.74018 1.39524 6.59902 1.58501L2.55902 6.62801L6.59902 11.672C6.74018 11.8618 6.81641 12.092 6.81641 12.3285C6.81641 12.565 6.74018 12.7952 6.59902 12.985C6.53955 13.0692 6.46073 13.1379 6.3692 13.1853C6.27767 13.2327 6.1761 13.2574 6.07302 13.2574C5.96994 13.2574 5.86837 13.2327 5.77684 13.1853C5.68531 13.1379 5.60649 13.0692 5.54702 12.985L0.98102 7.28501C0.839865 7.09524 0.763635 6.86502 0.763635 6.62851C0.763635 6.392 0.839865 6.16178 0.98102 5.97201Z" [attr.fill]="options.pageNumber > 1?'#B5B5C3':'#DADAE1'"/>
-                </svg>
-            </button>
+  <div class="d-flex justify-content-between align-items-center flex-wrap">
+    <div class="d-flex gap-2 align-items-center text-secondary">
+      <span style="min-width: max-content;">Rows Per Page</span>
+      <select name="perpage" id="perpage" class="form-control form-control-sm" [(ngModel)]="options.pageSize" [ngModelOptions]="{standalone: true}" (change)="options.pageNumber = totalUsersCount > options.pageSize? options.pageNumber:1; loadUsers(options.pageNumber ,options.pageSize)">
+        <option value="5">5</option>
+        <option value="10" selected>10</option>
+        <option value="25">25</option>
+        <option value="50">50</option>
+        <option value="100">100</option>
+      </select>
+    </div>
+    <small class="text-secondary">
+      {{options.pageNumber}} of {{pagesCount}}
+      <button [disabled]="options.pageNumber <= 1" class="btn btn-sm btn-secondary border-0 rounded-0 rounded-start ms-2" [class]="options.pageNumber > 1? 'bg-secondary bg-opacity-25':'bg-light'" (click)="changePage('prev')">
+        <svg width="7" height="14" viewBox="0 0 7 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M0.98102 5.97201L5.54702 0.272009C5.60649 0.187817 5.68531 0.119131 5.77684 0.0717234C5.86837 0.0243161 5.96994 -0.000427246 6.07302 -0.000427246C6.1761 -0.000427246 6.27767 0.0243161 6.3692 0.0717234C6.46073 0.119131 6.53955 0.187817 6.59902 0.272009C6.74018 0.461781 6.81641 0.691996 6.81641 0.928508C6.81641 1.16502 6.74018 1.39524 6.59902 1.58501L2.55902 6.62801L6.59902 11.672C6.74018 11.8618 6.81641 12.092 6.81641 12.3285C6.81641 12.565 6.74018 12.7952 6.59902 12.985C6.53955 13.0692 6.46073 13.1379 6.3692 13.1853C6.27767 13.2327 6.1761 13.2574 6.07302 13.2574C5.96994 13.2574 5.86837 13.2327 5.77684 13.1853C5.68531 13.1379 5.60649 13.0692 5.54702 12.985L0.98102 7.28501C0.839865 7.09524 0.763635 6.86502 0.763635 6.62851C0.763635 6.392 0.839865 6.16178 0.98102 5.97201Z" [attr.fill]="options.pageNumber > 1?'#B5B5C3':'#DADAE1'" />
+        </svg>
+      </button>
 
-            <button [disabled]="pagesCount <= options.pageNumber" class="btn btn-sm btn-secondary border-0 rounded-0 rounded-end" [class]="pagesCount > options.pageNumber? 'bg-secondary bg-opacity-25':'bg-light'" (click)="changePage('next')">
-                <svg width="7" height="14" viewBox="0 0 7 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M5.88617 7.28397L1.32017 12.984C1.26069 13.0682 1.18188 13.1369 1.09035 13.1843C0.998819 13.2317 0.897246 13.2564 0.794167 13.2564C0.691088 13.2564 0.589515 13.2317 0.497984 13.1843C0.406454 13.1369 0.32764 13.0682 0.268167 12.984C0.127012 12.7942 0.0507813 12.564 0.0507813 12.3275C0.0507813 12.091 0.127012 11.8607 0.268167 11.671L4.30817 6.62797L0.268167 1.58397C0.127012 1.3942 0.0507813 1.16399 0.0507813 0.927473C0.0507813 0.69096 0.127012 0.460746 0.268167 0.270973C0.32764 0.186781 0.406454 0.118094 0.497984 0.0706873C0.589515 0.0232801 0.691088 -0.00146294 0.794167 -0.00146294C0.897246 -0.00146294 0.998819 0.0232801 1.09035 0.0706873C1.18188 0.118094 1.26069 0.186781 1.32017 0.270973L5.88617 5.97097C6.02732 6.16075 6.10355 6.39096 6.10355 6.62747C6.10355 6.86399 6.02732 7.0942 5.88617 7.28397Z" [attr.fill]="pagesCount > options.pageNumber?'#B5B5C3':'#DADAE1'"/>
-                    </svg>
-                    
-            </button>
-        </small>
-      </div>
+      <button [disabled]="pagesCount <= options.pageNumber" class="btn btn-sm btn-secondary border-0 rounded-0 rounded-end" [class]="pagesCount > options.pageNumber? 'bg-secondary bg-opacity-25':'bg-light'" (click)="changePage('next')">
+        <svg width="7" height="14" viewBox="0 0 7 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M5.88617 7.28397L1.32017 12.984C1.26069 13.0682 1.18188 13.1369 1.09035 13.1843C0.998819 13.2317 0.897246 13.2564 0.794167 13.2564C0.691088 13.2564 0.589515 13.2317 0.497984 13.1843C0.406454 13.1369 0.32764 13.0682 0.268167 12.984C0.127012 12.7942 0.0507813 12.564 0.0507813 12.3275C0.0507813 12.091 0.127012 11.8607 0.268167 11.671L4.30817 6.62797L0.268167 1.58397C0.127012 1.3942 0.0507813 1.16399 0.0507813 0.927473C0.0507813 0.69096 0.127012 0.460746 0.268167 0.270973C0.32764 0.186781 0.406454 0.118094 0.497984 0.0706873C0.589515 0.0232801 0.691088 -0.00146294 0.794167 -0.00146294C0.897246 -0.00146294 0.998819 0.0232801 1.09035 0.0706873C1.18188 0.118094 1.26069 0.186781 1.32017 0.270973L5.88617 5.97097C6.02732 6.16075 6.10355 6.39096 6.10355 6.62747C6.10355 6.86399 6.02732 7.0942 5.88617 7.28397Z" [attr.fill]="pagesCount > options.pageNumber?'#B5B5C3':'#DADAE1'" />
+        </svg>
+
+      </button>
+    </small>
+  </div>
 </main>
 
+<!-- MODALB -->
 
-<div class="modal fade" [class.show]="isModalOpen" tabindex="-1" role="dialog" [style]="isModalOpen? 'block':'none'">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <form class="modal-body">
+<div class="modal fade show" tabindex="-1" role="dialog" [style.display]="isModalOpen? 'block':''">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="bg-dark bg-opacity-50 position-fixed top-0 bottom-0 start-0 end-0 z-2" role="button" (click)="isModalOpen = false"></div>
+    <div class="modal-content z-3">
+      <form class="modal-body" (submit)="modalState == 'add'? addUser(): editUser()">
         <div class="d-flex justify-content-between align-items-center">
-            <h5 class="modal-title">User Details</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          <h5 class="modal-title">User Details</h5>
+          <button type="button" class="btn-close" (click)="isModalOpen = false" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+
+        <section class="d-flex justify-content-evenly col-12">
+          <br>
+          <img src="/assets/fallback-user-img.webp" alt="user-img" class="rounded-circle" style="width: 160px; aspect-ratio: 1; object-fit: contain;"/>
+
+          <div>
+            <button *ngIf="modalState != 'add'" class="ic-eye btn btn-sm rounded-circle link-success border-0 p-1 mx-1" (click)="modalState = 'edit'">
+              <i class="ic-pen">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M15 6L18 9M13 20H21M5 16L4 20L8 19L19.586 7.414C19.9609 7.03894 20.1716 6.53033 20.1716 6C20.1716 5.46967 19.9609 4.96105 19.586 4.586L19.414 4.414C19.0389 4.03906 18.5303 3.82843 18 3.82843C17.4697 3.82843 16.9611 4.03906 16.586 4.414L5 16Z" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </i>
+            </button>
+            <button *ngIf="modalState != 'add'" class="ic-eye btn btn-sm rounded-circle link-danger border-0 p-1 mx-1" (click)="deleteUser(modalData.id)">
+              <i class="ic-trash">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M10.1999 4.8H13.7999C13.7999 4.32261 13.6103 3.86477 13.2727 3.52721C12.9351 3.18964 12.4773 3 11.9999 3C11.5225 3 11.0647 3.18964 10.7271 3.52721C10.3895 3.86477 10.1999 4.32261 10.1999 4.8ZM8.9999 4.8C8.9999 4.00435 9.31597 3.24129 9.87858 2.67868C10.4412 2.11607 11.2043 1.8 11.9999 1.8C12.7956 1.8 13.5586 2.11607 14.1212 2.67868C14.6838 3.24129 14.9999 4.00435 14.9999 4.8H20.9999C21.159 4.8 21.3116 4.86321 21.4242 4.97574C21.5367 5.08826 21.5999 5.24087 21.5999 5.4C21.5999 5.55913 21.5367 5.71174 21.4242 5.82426C21.3116 5.93678 21.159 6 20.9999 6H19.7351L18.3023 18.4128C18.201 19.2902 17.7807 20.0998 17.1213 20.6875C16.462 21.2752 15.6096 21.5999 14.7263 21.6H9.2735C8.39025 21.5999 7.53784 21.2752 6.87847 20.6875C6.2191 20.0998 5.79878 19.2902 5.6975 18.4128L4.2647 6H2.9999C2.84077 6 2.68816 5.93678 2.57564 5.82426C2.46312 5.71174 2.3999 5.55913 2.3999 5.4C2.3999 5.24087 2.46312 5.08826 2.57564 4.97574C2.68816 4.86321 2.84077 4.8 2.9999 4.8H8.9999ZM6.8891 18.276C6.95681 18.8609 7.23716 19.4005 7.6768 19.7921C8.11645 20.1837 8.68472 20.4001 9.2735 20.4H14.7263C15.3151 20.4001 15.8834 20.1837 16.323 19.7921C16.7626 19.4005 17.043 18.8609 17.1107 18.276L18.5267 6H5.4731L6.8891 18.276ZM10.1999 9C10.359 9 10.5116 9.06321 10.6242 9.17573C10.7367 9.28826 10.7999 9.44087 10.7999 9.6V16.8C10.7999 16.9591 10.7367 17.1117 10.6242 17.2243C10.5116 17.3368 10.359 17.4 10.1999 17.4C10.0408 17.4 9.88816 17.3368 9.77564 17.2243C9.66312 17.1117 9.5999 16.9591 9.5999 16.8V9.6C9.5999 9.44087 9.66312 9.28826 9.77564 9.17573C9.88816 9.06321 10.0408 9 10.1999 9ZM14.3999 9.6C14.3999 9.44087 14.3367 9.28826 14.2242 9.17573C14.1116 9.06321 13.959 9 13.7999 9C13.6408 9 13.4882 9.06321 13.3756 9.17573C13.2631 9.28826 13.1999 9.44087 13.1999 9.6V16.8C13.1999 16.9591 13.2631 17.1117 13.3756 17.2243C13.4882 17.3368 13.6408 17.4 13.7999 17.4C13.959 17.4 14.1116 17.3368 14.2242 17.2243C14.3367 17.1117 14.3999 16.9591 14.3999 16.8V9.6Z" fill="currentColor" />
+                </svg>
+              </i>
+            </button>
+          </div>
+        </section>
+
+        <section class="row px-0 mx-0">
+          <div class="col-12 col-md-6">
+            <div class="p-1">
+              <label for="name" class="fw-semibold mb-1">Full Name</label>
+              <input type="text" class="form-control" id="name" [(ngModel)]="modalData.name" [ngModelOptions]="{standalone: true}" [readonly]="modalState == 'preview'" (input)="validate()">
+            </div>
+          </div>
+          <div class="col-12 col-md-6">
+            <div class="p-1">
+              <label for="userName" class="fw-semibold mb-1">User Name</label>
+              <input type="text" class="form-control" id="userName" [(ngModel)]="modalData.userName" [ngModelOptions]="{standalone: true}" [readonly]="modalState == 'preview'" (input)="validate()">
+            </div>
+          </div>
+          <div class="col-12 col-md-6">
+            <div class="p-1">
+              <label for="email" class="fw-semibold mb-1">Email</label>
+              <input type="email" class="form-control" id="email" [(ngModel)]="modalData.email" [ngModelOptions]="{standalone: true}" [readonly]="modalState == 'preview'" (input)="validate()">
+            </div>
+          </div>
+          <div class="col-12 col-md-6">
+            <div class="p-1">
+              <label for="password" class="fw-semibold mb-1">Password</label>
+              <input type="password" class="form-control" id="password" [(ngModel)]="modalData.password" [ngModelOptions]="{standalone: true}" [readonly]="modalState == 'preview'" (input)="validate()">
+            </div>
           </div>
           
-          <div class="d-flex justify-content-between">
-            <i></i>
-            <img src="{{modalData.url}}" alt="" class="rounded-circle" style="width: 160px; aspect-ratio: 1; object-fit: contain;">
-            <div class="self-start">
-                <button class="ic-eye btn btn-sm rounded-circle btn-outline-success border-0 p-1 mx-1" (click)="modalState = 'edit'">
-                    <i class="ic-pen">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M15 6L18 9M13 20H21M5 16L4 20L8 19L19.586 7.414C19.9609 7.03894 20.1716 6.53033 20.1716 6C20.1716 5.46967 19.9609 4.96105 19.586 4.586L19.414 4.414C19.0389 4.03906 18.5303 3.82843 18 3.82843C17.4697 3.82843 16.9611 4.03906 16.586 4.414L5 16Z" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>                                
-                    </i>
-                </button>
-                <button class="ic-eye btn btn-sm rounded-circle btn-outline-danger border-0 p-1 mx-1" (click)="deleteUser(modalData.id)">
-                    <i class="ic-trash">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M10.1999 4.8H13.7999C13.7999 4.32261 13.6103 3.86477 13.2727 3.52721C12.9351 3.18964 12.4773 3 11.9999 3C11.5225 3 11.0647 3.18964 10.7271 3.52721C10.3895 3.86477 10.1999 4.32261 10.1999 4.8ZM8.9999 4.8C8.9999 4.00435 9.31597 3.24129 9.87858 2.67868C10.4412 2.11607 11.2043 1.8 11.9999 1.8C12.7956 1.8 13.5586 2.11607 14.1212 2.67868C14.6838 3.24129 14.9999 4.00435 14.9999 4.8H20.9999C21.159 4.8 21.3116 4.86321 21.4242 4.97574C21.5367 5.08826 21.5999 5.24087 21.5999 5.4C21.5999 5.55913 21.5367 5.71174 21.4242 5.82426C21.3116 5.93678 21.159 6 20.9999 6H19.7351L18.3023 18.4128C18.201 19.2902 17.7807 20.0998 17.1213 20.6875C16.462 21.2752 15.6096 21.5999 14.7263 21.6H9.2735C8.39025 21.5999 7.53784 21.2752 6.87847 20.6875C6.2191 20.0998 5.79878 19.2902 5.6975 18.4128L4.2647 6H2.9999C2.84077 6 2.68816 5.93678 2.57564 5.82426C2.46312 5.71174 2.3999 5.55913 2.3999 5.4C2.3999 5.24087 2.46312 5.08826 2.57564 4.97574C2.68816 4.86321 2.84077 4.8 2.9999 4.8H8.9999ZM6.8891 18.276C6.95681 18.8609 7.23716 19.4005 7.6768 19.7921C8.11645 20.1837 8.68472 20.4001 9.2735 20.4H14.7263C15.3151 20.4001 15.8834 20.1837 16.323 19.7921C16.7626 19.4005 17.043 18.8609 17.1107 18.276L18.5267 6H5.4731L6.8891 18.276ZM10.1999 9C10.359 9 10.5116 9.06321 10.6242 9.17573C10.7367 9.28826 10.7999 9.44087 10.7999 9.6V16.8C10.7999 16.9591 10.7367 17.1117 10.6242 17.2243C10.5116 17.3368 10.359 17.4 10.1999 17.4C10.0408 17.4 9.88816 17.3368 9.77564 17.2243C9.66312 17.1117 9.5999 16.9591 9.5999 16.8V9.6C9.5999 9.44087 9.66312 9.28826 9.77564 9.17573C9.88816 9.06321 10.0408 9 10.1999 9ZM14.3999 9.6C14.3999 9.44087 14.3367 9.28826 14.2242 9.17573C14.1116 9.06321 13.959 9 13.7999 9C13.6408 9 13.4882 9.06321 13.3756 9.17573C13.2631 9.28826 13.1999 9.44087 13.1999 9.6V16.8C13.1999 16.9591 13.2631 17.1117 13.3756 17.2243C13.4882 17.3368 13.6408 17.4 13.7999 17.4C13.959 17.4 14.1116 17.3368 14.2242 17.2243C14.3367 17.1117 14.3999 16.9591 14.3999 16.8V9.6Z" fill="currentColor"/>
-                            </svg>                                
-                    </i>
-                </button>
-            </div>
+          <small class="text-danger fs-9 d-block text-center col-12" [class.d-none]="modalState == 'preview' || modalFormErrors.formValid">You must fill all the fields correctly</small>
 
-            <div>
-                
-            </div>
-            
-            <div *ngIf="modalState!= 'preview'">
-                <hr class="mx-2">
-                <div class="text-center">
-                    <button></button>
-                </div>
-            </div>            
+          <div class="text-center mt-4 mb-2">
+            <button class="btn btn-sm px-5 btn-dark rounded-3 mx-auto align-self-center" type="submit" [disabled]="isLoading || !modalFormErrors.formValid" *ngIf="modalState != 'preview' ">
+              {{modalState == 'add'? 'Add User':'Save Changes'}}
+            </button>
           </div>
-        </form>
-      </div>
+        </section>
+      </form>
     </div>
   </div>
+</div>

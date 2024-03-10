@@ -9,6 +9,7 @@ interface User {
   lastEditDate?: Date;
   clientId: string;
   id: number;
+  password?: string;
 }
 
 interface Response {

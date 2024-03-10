@@ -3,16 +3,14 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { NgxEchartsDirective, provideEcharts } from 'ngx-echarts';
 import { EChartsOption, graphic } from 'echarts';
-
 import { StatisticsService } from '../../../core/statistics.service';
 import {
   GoogleMap,
   MapDirectionsRenderer,
-  MapDirectionsService,
   MapMarker,
   MapPolyline,
 } from '@angular/google-maps';
-import { Observable, map, catchError, interval } from 'rxjs';
+import { interval } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -52,10 +50,8 @@ export class HomeComponent {
     if (event.latLng) this.markerPositions.push(event.latLng.toJSON());
   }
 
-  //!===================================== REST
-
   locations: Coordinate[] | null = [];
-  paths: Coordinate[] = [];
+  // paths: Coordinate[] = [];
   financials: FinancialRecord[] = [];
   usersStats: UsersStatsRecord[] = [];
 
@@ -106,7 +102,6 @@ export class HomeComponent {
       (res) => {
         if (!res.success) throw res.message;
 
-        this.paths = res.data;
         this.roadPath = res.data.map((i:Coordinate)=> ({lat: i.latitude,lng: i.longitude}));
 
         const pathLength = this.roadPath.length;
