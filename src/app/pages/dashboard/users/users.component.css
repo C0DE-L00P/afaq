@@ -1,3 +1,7 @@
-th,.action-btns{
+th{
     min-width: max-content;
+}
+
+.action-btns{
+    min-width: 180px;
 }
