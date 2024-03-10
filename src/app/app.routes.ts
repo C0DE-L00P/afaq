@@ -7,7 +7,6 @@ import { CanActivateDashboard, CanActivateLogin } from './core/auth.guard';
 import { NotificationsComponent } from './pages/dashboard/notifications/notifications.component';
 
 export const routes: Routes = [
-  { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent, canActivate: [CanActivateLogin] },
   {
     path: 'dashboard',
@@ -19,7 +18,7 @@ export const routes: Routes = [
       { path: 'home', component: HomeComponent },
       { path: 'users', component: UsersComponent },
       { path: 'notifications', component: NotificationsComponent },
-      { path: '**', redirectTo: '' },
     ],
   },
+  { path: '**', redirectTo: 'login' },
 ];

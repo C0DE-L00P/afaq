@@ -8,9 +8,11 @@ export const CanActivateDashboard = () => {
   const router = inject(Router);
 
   if (authService.userData) return true;
-  let token = localStorage.getItem('token');
-  if (!!token && token != '') {
 
+
+  let token = localStorage.getItem('token');
+
+  if (!!token && token != '') {
     //Get userData and access
     let { nameid } = interpretToken(token);
 
@@ -25,22 +27,21 @@ export const CanActivateDashboard = () => {
     return true;
   }
 
-  router.navigate(['/login']);
+  router.navigate(['login']);
   return false;
 };
 
 export const CanActivateLogin = () => {
   const router = inject(Router);
 
-    // //   for debugging perpuse remove it when done
-    // return true;
+  //   for debugging perpuse remove it when done
+  // return true;
 
-  if (!CanActivateDashboard) {
-    return true;
-  } else {
-    router.navigate(['/dashboard']);
-    return false;
-  }
+  let token = localStorage.getItem('token')
+  if (!token) return true;
+
+  router.navigate(['dashboard']);
+  return false;
 };
 
 function interpretToken(token: string) {
