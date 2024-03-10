@@ -12,11 +12,13 @@
 <section class="bg-white rounded-1 pt-2 pb-0 mb-4 mx-2">
     <h4 class="my-2 mb-4 mx-4">Tracking Map</h4>
     <div class="overflow-hidden d-flex flex-column mx-auto" style="width: max-content; ">
-        <!-- <google-map height="400px" width="750px" [center]="center" [zoom]="zoom">
-            @if (directionsResults$ | async; as directionsResults) {
+        <google-map height="400px" width="750px" [center]="trackingCenter" [zoom]="zoom">
+            <!-- @if (directionsResults$ | async; as directionsResults) {
               <map-directions-renderer [directions]="directionsResults" />
-            }
-          </google-map> -->
+            } -->
+            <map-polyline [path]="roadPath" [options]="polylineOptions"></map-polyline>
+            <map-marker [position]="carPosition"></map-marker>
+          </google-map>
     </div>
 </section>
 

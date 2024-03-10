@@ -10,8 +10,9 @@ import {
   MapDirectionsRenderer,
   MapDirectionsService,
   MapMarker,
+  MapPolyline,
 } from '@angular/google-maps';
-import { Observable, map, catchError } from 'rxjs';
+import { Observable, map, catchError, interval } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -22,23 +23,16 @@ import { Observable, map, catchError } from 'rxjs';
     MapMarker,
     MapDirectionsRenderer,
     NgxEchartsDirective,
+    MapPolyline,
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
   providers: [provideEcharts()],
 })
 export class HomeComponent {
-  //! ======================== MapDirectionsRenderer
-
-  // center: google.maps.LatLngLiteral = {lat: 24, lng: 12};
-  // zoom = 4;
-
-  // readonly directionsResults$: Observable<
-  //   google.maps.DirectionsResult | undefined
-  // >;
-
   //=============== Map
   center: google.maps.LatLngLiteral = {
+    //Center on Egypt
     lat: 30.081498094664965,
     lng: 31.339617463054996,
   };
@@ -65,23 +59,7 @@ export class HomeComponent {
   financials: FinancialRecord[] = [];
   usersStats: UsersStatsRecord[] = [];
 
-  constructor(
-    private locationsService: LocationsService,
-    private statisticsService: StatisticsService,
-    mapDirectionsService: MapDirectionsService
-  ) {
-
-    //TODO back to tracking
-    const request: google.maps.DirectionsRequest = {
-      destination: { lat: 12, lng: 4 },
-      origin: { lat: 14, lng: 8 },
-      travelMode: google.maps.TravelMode.DRIVING,
-    };
-
-    // this.directionsResults$ = mapDirectionsService
-    //   .route(request)
-    //   .pipe(map((response: any) => response.result));
-  }
+  constructor(private locationsService: LocationsService,private statisticsService: StatisticsService) {}
 
   ngOnInit() {
     this.getLocations();
@@ -105,12 +83,40 @@ export class HomeComponent {
     );
   }
 
+  
+  carPosition: google.maps.LatLngLiteral = { 
+    lat: 30.081498094664965,
+    lng: 31.339617463054996,
+   };
+
+  polylineOptions: google.maps.PolylineOptions = {
+    strokeColor: '#006aff',
+    strokeOpacity: 1.0,
+    strokeWeight: 4,
+  };
+
+  roadPath: google.maps.LatLngLiteral[] = [];
+  trackingCenter: google.maps.LatLngLiteral = {
+    lat: 30.081498094664965,
+    lng: 31.339617463054996,
+  };
+
   getPaths() {
     this.locationsService.getPaths().subscribe(
       (res) => {
         if (!res.success) throw res.message;
 
         this.paths = res.data;
+        this.roadPath = res.data.map((i:Coordinate)=> ({lat: i.latitude,lng: i.longitude}));
+
+        const pathLength = this.roadPath.length;
+
+        let index = 0;
+        interval(2000).subscribe(() => {
+          this.trackingCenter =  this.roadPath[index];
+          this.carPosition = this.roadPath[index];
+          index = (index + 1) % pathLength;
+        });
       },
       (err) => console.error(err)
     );
@@ -142,17 +148,18 @@ export class HomeComponent {
 
   //!======================= Chart
   financialChartOptions: EChartsOption = {
-    color: [
-      '#fecc4c',
-      '#55efba',
-    ],
+    color: ['#fecc4c', '#55efba'],
     legend: {},
     tooltip: {},
     dataset: {
       // Provide a set of data
       source: [
         ['Money', 'Expense', 'Revenue'],
-        ...this.financials.map((i:FinancialRecord)=> ([i.month, i.expense, i.revenue,])),
+        ...this.financials.map((i: FinancialRecord) => [
+          i.month,
+          i.expense,
+          i.revenue,
+        ]),
       ],
     },
     xAxis: { type: 'category' },
@@ -163,28 +170,29 @@ export class HomeComponent {
   financialChartMergeOptions: EChartsOption = {};
 
   CreateFinancialCharts() {
-    let arr = this.financials.map((i:FinancialRecord)=> ([i.month, i.expense, i.revenue,]))
+    let arr = this.financials.map((i: FinancialRecord) => [
+      i.month,
+      i.expense,
+      i.revenue,
+    ]);
 
     this.financialChartMergeOptions = {
       dataset: {
-        source: [
-          ['Money', 'Expense', 'Revenue'],
-        ...arr
-        ],
+        source: [['Money', 'Expense', 'Revenue'], ...arr],
       },
     };
   }
 
-  usersChartOptions:EChartsOption = {
+  usersChartOptions: EChartsOption = {
     color: ['#efb438'],
     tooltip: {
       trigger: 'axis',
       axisPointer: {
         type: 'cross',
         label: {
-          backgroundColor: '#efb438'
-        }
-      }
+          backgroundColor: '#efb438',
+        },
+      },
     },
     // legend: {
     //   data: ['Line 1', 'Line 2', 'Line 3', 'Line 4', 'Line 5']
@@ -198,19 +206,19 @@ export class HomeComponent {
       left: '3%',
       right: '4%',
       bottom: '3%',
-      containLabel: true
+      containLabel: true,
     },
     xAxis: [
       {
         type: 'category',
         boundaryGap: false,
-        data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
-      }
+        data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+      },
     ],
     yAxis: [
       {
-        type: 'value'
-      }
+        type: 'value',
+      },
     ],
     series: [
       {
@@ -220,7 +228,7 @@ export class HomeComponent {
         smooth: true,
         lineStyle: {
           width: 3,
-          color: '#efb438'
+          color: '#efb438',
         },
         showSymbol: false,
         areaStyle: {
@@ -228,34 +236,32 @@ export class HomeComponent {
           color: new graphic.LinearGradient(0, 0, 0, 1, [
             {
               offset: 1,
-              color: '#fae9c5'
+              color: '#fae9c5',
             },
             {
               offset: 1,
-              color: '#fae9c500'
-            }
-          ])
+              color: '#fae9c500',
+            },
+          ]),
         },
         emphasis: {
-          focus: 'series'
+          focus: 'series',
         },
-        data: [140, 232, 101, 264, 90, 340, 250]
+        data: [140, 232, 101, 264, 90, 340, 250],
       },
-    ]
+    ],
   };
 
   usersChartMergeOptions: EChartsOption = {};
 
-  CreateUsersCharts(){
-    console.log(this.usersStats)
-
+  CreateUsersCharts() {
     this.usersChartMergeOptions = {
       xAxis: {
-        data: this.usersStats.map((i:UsersStatsRecord)=> i.month)
+        data: this.usersStats.map((i: UsersStatsRecord) => i.month),
       },
       series: {
-        data: this.usersStats.map((i:UsersStatsRecord)=> i.numberOfUsers)
-      }
+        data: this.usersStats.map((i: UsersStatsRecord) => i.numberOfUsers),
+      },
     };
   }
 }
