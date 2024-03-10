@@ -45,13 +45,14 @@ export class LoginComponent {
           // this.usersService.updateUser(res.user.id, res.user.userName)
 
           // If all good
+          this.isLoading=false
           this.router.navigate(['dashboard']);
         },
         (err) => {
           this.errMsg = err.message;
           console.error('HTTP Error', err);
+          this.isLoading=false
         },
-        ()=> this.isLoading=false
       );
   }
 }
