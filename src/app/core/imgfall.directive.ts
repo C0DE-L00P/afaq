@@ -8,14 +8,12 @@ export class ImgfallDirective {
 
   @Input() appImgfall: string|null = null;
 
-  constructor(private eRef: ElementRef) {
-    console.log('directive works')
-   }
+  constructor(private eRef: ElementRef) {}
 
   @HostListener('error')
   loadFallbackOnError() {
     const element: HTMLImageElement = <HTMLImageElement>this.eRef.nativeElement;
-    element.src = this.appImgfall || 'https://via.placeholder.com/200';
+    element.src = this.appImgfall || '/assets/image-placeholder.webp';
   }
 
 }

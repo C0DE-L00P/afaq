@@ -1,4 +1,3 @@
-import { UsersService } from './../../core/users.service';
 import { AuthService } from './../../core/auth.service';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
@@ -49,8 +48,8 @@ export class LoginComponent {
           this.router.navigate(['dashboard']);
         },
         (err) => {
-          console.log('HTTP Error', err);
           this.errMsg = err.message;
+          console.error('HTTP Error', err);
         },
         ()=> this.isLoading=false
       );

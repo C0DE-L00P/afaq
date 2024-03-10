@@ -50,6 +50,5 @@ function interpretToken(token: string) {
   const decodedPayload = atob(payload);
   const decodedPayloadObj = JSON.parse(decodedPayload);
 
-  console.log(decodedPayloadObj);
   return decodedPayloadObj;
 }
